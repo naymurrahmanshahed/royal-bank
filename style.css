@@ -78,7 +78,7 @@ body {
   grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
   /* login info */
-  opacity: 1;
+  opacity: 0;
   transition: all 0.3s;
 }
 
