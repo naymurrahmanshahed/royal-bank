@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Banking - Royal Bank</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./image/Royal.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <header>
+      <!-- navbar -->
+      <nav class="nav-bar">
+        <p class="welcome">Welcome My Account</p>
+        <img src="./image/royal.png" class="logo" alt="" />
+        <form class="login">
+          <input
+            class="login-input login-username"
+            type="text"
+            placeholder="Username"
+          />
+          <input
+            class="login-input login-password"
+            type="password"
+            placeholder="Password"
+          />
+          <button class="login-btn">Log in &rarr;</button>
+        </form>
+      </nav>
+    </header>
+
+    <!-- main section -->
+    <main class="app">
+      <!-- Balance -->
+      <div class="balance">
+        <div>
+          <p class="balance-level">Current Balance</p>
+          <p class="balance-date">As of <span class="date">28/09/2022</span></p>
+        </div>
+        <p class="balance-value">5000$</p>
+      </div>
+
+      <!-- movements -->
+      <div class="movements">
+        <!-- movement raw here -->
+      </div>
+
+      <!-- summary  -->
+      <div class="summary">
+        <p class="summary-label">In</p>
+        <p class="summary-value summary-value-in">000$</p>
+        <p class="summary-label">Out</p>
+        <p class="summary-value summary-value-out">000$</p>
+        <p class="summary-label">interest</p>
+        <p class="summary-value summary-value-interest">000$</p>
+        <button class="btn-sort">sort &darr;</button>
+      </div>
+
+      <!-- transfer -->
+      <div class="operation operation-transfer">
+        <h2>Transfer Money</h2>
+        <form class="form form-transfer">
+          <input class="form form-input form-input-account" type="text" />
+          <input class="form form-input form-input-amount" type="text" />
+          <button class="form-btn btn-transfer">&rarr;</button>
+          <label class="form-label">Transfer To</label>
+          <label class="form-label">Amount</label>
+        </form>
+      </div>
+
+      <!-- loan -->
+      <div class="operation operation-loan">
+        <h2>Request Loan</h2>
+        <form class="form form-loan">
+          <input class="form form-input form-input-loan-amount" type="text" />
+          <button class="form-btn btn-loan">&rarr;</button>
+          <label class="form-label form-label-loan">Amount</label>
+        </form>
+      </div>
+
+      <!-- close account -->
+      <div class="operation operation-close-account">
+        <h2>Close Account</h2>
+        <form class="form form-close">
+          <input class="form form-input" type="text" />
+          <input class="form form-input form-input-password" type="password" />
+          <button class="form-btn btn-close">&rarr;</button>
+          <label class="form-label">Username</label>
+          <label class="form-label">Password</label>
+        </form>
+      </div>
+
+      <!-- Logout -->
+      <p class="logout-timer">
+        You will be logged out in <span class="timer">02:00</span>
+      </p>
+    </main>
+
+    <!-- footer  -->
+    <footer>
+      &copy; <span class="copyright-year">2022</span>,
+      <strong>Royal Bank</strong> by Naymur Rahman. All rights reserved.
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
