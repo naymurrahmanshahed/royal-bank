@@ -187,6 +187,13 @@ body {
   cursor: pointer;
 }
 
+.login-btn:hover,
+.login-btn:focus,
+.btn-sort:focus,
+.btn-sort:hover {
+  color: #777;
+}
+
 .operation {
   border-radius: 1rem;
   padding: 3rem 4rem;
