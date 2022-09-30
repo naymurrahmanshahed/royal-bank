@@ -73,27 +73,26 @@ const btnTransfer = document.querySelector(".btn-transfer");
 const btnLoan = document.querySelector(".btn-loan");
 const btnClose = document.querySelector(".btn-close");
 
-let currentAccount;
-
 function displayCurrentAccount(currentAccount) {
   displayMovements(currentAccount);
   displayBalance(currentAccount);
   displaySummary(currentAccount);
 }
+createUsername(accounts);
 
 //create username
 
 function createUsername(accounts) {
   accounts.forEach((account) => {
-    account.userName = account.owner
+    account.username = account.owner
       .toLowerCase()
       .split(" ")
       .map((word) => word.at(0))
       .join("");
   });
 }
+let currentAccount;
 
-createUsername(accounts);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///Login Account
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,11 +100,13 @@ createUsername(accounts);
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
-    (account) => account.userName === inputLoginUsername.value
+    (account) => account.username === inputLoginUsername.value
   );
 
   if (currentAccount?.password === Number(inputLoginPassword.value)) {
-    labelWelcome.textContent = "Login successfully😀";
+    labelWelcome.textContent = `Wellcome back, ${currentAccount.owner
+      .split(" ")
+      .at(0)} `;
     containerApp.style.opacity = "1";
   } else {
     labelWelcome.textContent = "Login Failed🙁";
@@ -124,6 +125,7 @@ btnLogin.addEventListener("click", function (e) {
 
 function displayMovements(account) {
   containerMovements.innerHTML = "";
+  console.log(account);
   const moves = account.movements;
   moves.forEach((move, i) => {
     const type = move > 0 ? "deposit" : "withdrawal";
@@ -182,3 +184,105 @@ function displaySummary(account) {
 
   labelInterest.textContent = `${totalInterest}$`;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+///Transfer Balance
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const recieverAccount = accounts.find(
+    (account) => account.username === inputTransferAccount.value
+  );
+  const amount = Number(inputTransferAmount.value);
+
+  // clear fields
+  inputTransferAccount.value = inputTransferAmount.value = "";
+  inputTransferAmount.blur();
+
+  if (
+    amount > 0 &&
+    amount <= currentAccount.currentBalance &&
+    recieverAccount.username !== currentAccount.username &&
+    recieverAccount
+  ) {
+    // transfer money
+    currentAccount.movements.push(-amount);
+    recieverAccount.movements.push(amount);
+
+    //message
+    labelWelcome.textContent = "Transaction successfully";
+
+    // Update UI
+    displayCurrentAccount(currentAccount);
+  } else {
+    //message
+    labelWelcome.textContent = "Transaction failed";
+  }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+///Loan
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((move) => move >= amount * 0.1)
+  ) {
+    //Add positive movement into current account
+    currentAccount.movements.push(amount);
+
+    //message
+    labelWelcome.textContent = "Loan Added";
+    // UpdateUI
+    displayCurrentAccount(currentAccount);
+
+    // Clear
+
+    inputLoanAmount.value = "";
+  } else {
+    //message
+    labelWelcome.textContent = "Loan Not Added";
+  }
+  inputLoanAmount.value = "";
+  inputLoanAmount.blur();
+});
+
+///////////////////////////////
+//Delete Account
+///////////////////////////////
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    currentAccount.userName === inputCloseUsername.value &&
+    currentAccount.password === Number(inputClosePassword.value)
+  ) {
+    const index = accounts.findIndex(
+      (account) => account.userName === currentAccount.userName
+    );
+
+    // delete
+    accounts.splice(index, 1);
+
+    // hide ui
+    containerApp.style.opacity = 0;
+
+    // sms
+    labelWelcome.textContent = "account deleted";
+  } else {
+    labelWelcome.textContent = "delete can not be done";
+  }
+
+  // clear fileds
+  inputCloseUsername.value = inputClosePassword.value = "";
+  inputClosePassword.blur();
+});
+console.log(accounts);
